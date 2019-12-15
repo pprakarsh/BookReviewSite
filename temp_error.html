@@ -1,0 +1,15 @@
+
+{% extends "layout.html" %}
+
+{% block heading %}
+<h1>	Welcome to BookBee! Hello</h1>
+{% endblock %}
+
+{% block body %}
+<div class = "error-msg">
+	<h3>{% for name in usernames %}
+		{{ name }}
+		{% endfor %}
+	</h3>
+</div>
+{% endblock %}

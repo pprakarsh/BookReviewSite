@@ -1,0 +1,13 @@
+
+{% extends "layout.html" %}
+
+{% block heading %}
+<h1>	Welcome to BookBee! Hi</h1>
+{% endblock %}
+
+{% block body %}
+<div class = "error-msg">
+	<h3>{{ error }}</h3>
+	<a href="{{ url_for(back) }}"><span>Go back to {{ text_back }}again!</span></a>
+</div>
+{% endblock %}

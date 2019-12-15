@@ -1,0 +1,163 @@
+{% extends "layout.html" %}
+{% block header %}
+<title>Book_info: {{ title }}</title>
+<style>
+	body
+	{
+		display: grid;
+		grid-template-rows:1fr 8fr 5fr; 
+		grid-template-columns:10fr 10fr 10fr 4fr;
+	}	
+	#page_head
+	{
+		font-size: 2.5em;
+		background-color: #ECECEC;
+		grid-row:1/2;
+		grid-column:1/5;
+		margin:0px;
+		padding: 18px;
+	}
+	#book_info
+	{
+		background-color: #F1D04F;
+		grid-row:2/3;
+		grid-column:1/2;
+		padding: 10px;
+	}
+	#GoodReads
+	{
+		background-color: #91CCF4;
+		grid-row:2/3;
+		grid-column:2/3;
+		padding: 10px;
+	}
+	#Reviews
+	{
+		background-color: #F58787;
+		grid-row:2/3;
+		grid-column:3/5;
+		padding: 10px;
+	}
+	
+	.review_user
+	{
+		margin: 3px;	
+		background-color:#F36C74;
+		padding-left: 8px;
+		padding-top: 2px;
+		padding-bottom: 2px;
+		border-radius: 12px;
+		color: white;
+	}
+	#reviewform
+	{
+		padding:20px;
+		grid-row:3/4;
+		grid-column:1/4;
+		background-color:#131E53;
+		color: white;
+	}
+	#side-bar
+	{	
+		padding-top: 300px;
+		background-color:#131E53;
+		grid-row:3/4;
+		grid-column:4/5;
+	}
+	select
+	{
+		width: 70%;
+	}
+	textarea
+	{
+		width:100%;
+	}
+	#msg_reviewed
+	{
+		width:50%;
+	}
+</style>
+{% endblock %}
+
+
+{% block heading %}<h1 id="page_head" align="center">{{ title }}</h1>{% endblock %}
+
+{% block body %}
+<div id="book_info">
+	<h2 align="center"><b> {{ title }}</b></h2>
+	<h3><b>Author:</b> <i> {{ author }}</i></h3>
+	<h3><b>Year of publication:</b><i> {{ year }}</i></h3>
+</div>
+
+<div id="GoodReads">
+	<h2 align="center"><b>GoodReads:</b> </h2>
+	<h3><b>Avg_rating:</b> <i> {{ avg_score }}</i></h3>
+	<h3><b>Review_count:</b> <i> {{ review_count }}</i></h3>
+</div>
+
+<div id="Reviews" align = "center">
+	<h2><b>Book Review by members:</b></h2>
+	{% for review in reviews %}		
+	<div class = "review_user" align="left">
+		<b>User</b>: <i>{{ review.username }}</i></p>
+		<b>Rating</b>: <i>{{ review.rating }}</i></p>
+		<b>Review</b>: <i>{{ review.book_review }}</i></p>
+	</div>
+	{% endfor %}
+</div>
+
+<div class = "form" id = "reviewform" align="center">
+	<h3><b>Write your Review here:</b></h3>
+	<p>
+	<form action={{ url_for('review_submit', isbn=isbn, title=title, author=author, year=year) }} method="POST">
+	<div class="row">
+		<div class="col">
+			<div class="form-group">
+				<label for="book_rating"><b>Rating: </b></label>
+				<p><p>
+				<select required name="book_rating" id="book_rating">
+					<option selected disabled>Please rate this book out of 5:</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+			</div>
+		</div>
+		<div class="col">
+			<div class="form-group">
+				<textarea required name="short-review" rows="10" cols="50" placeholder="Please write your review of the book here......" id="review_text_post"></textarea>
+			</div>
+		</div>
+
+
+		<div class="col"> 
+			{% if post == "1" %} 
+			<div id="msg_reviewd" class="alert alert-warning">
+				<b>Multiple reviews not allowed!</b>
+			</div>
+			{% endif %}
+			<button class="btn btn-success">Submit your review</button>
+		</div>
+	</div>
+	</form>
+</div>
+
+<div id="side-bar">
+	<div class = "form" id = "logout_form"> 
+		<form action="{{ url_for('logout') }}" method="POST">
+			<input type="hidden" name="logout" value= "{{ username }}" />	
+			<button id="logout_button" class="btn btn-primary">Logout</button>
+		</form>
+	</div>
+	<p>
+	<div class = "form" id = "goback_form"> 
+		<form action="{{ url_for('home') }}" method="POST">
+			<input type="hidden" name="goback" value= "{{ username }}" />	
+			<button id="goback_button" class="btn btn-primary">Search again</button>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+h1
+{
+	text-align: center;
+	color: dark-magenta;
+}
+
+table
+{
+	border: 3px solid black;
+	border-collapse: collapse;
+	width: 50%;
+}
+
+th
+{
+	padding: 5px;
+	border: 2px solid black;
+	text-align: center;
+	background-color: grey;
+}
+
+td
+{
+	padding: 5px;
+	border: 1px solid black;
+	text-align: center;
+}

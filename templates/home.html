@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block header %}
+<title>SearchPage</title>
+<style>
+	body
+	{
+		display: grid;
+		grid-template-rows: 2fr 12fr 5fr 1fr;
+		grid-template-columns: 1fr;
+	}
+	header
+	{
+		margin-top: 20px;
+		margin-left:auto;
+		margin-right: auto;
+		margin-bottom: auto;
+		grid-row: 1/2;
+		grid-column: 1/2;
+	}
+	img
+	{
+		grid-row: 2/3;
+		grid-column: 1/2;
+		height:100%;
+		width:100%;
+	}
+	#search_form
+	{
+		margin-top: 35px;
+		margin-left: auto;
+		margin-right: auto;
+		grid-row: 3/4;
+		grid-column: 1/2;
+		width: 1200px;
+	}
+	#logout_form
+	{
+		grid-row: 4/5;
+		margin-right: 45px;
+	}
+	#logout_button
+	{
+		-webkit-transition-duration: 0.4s; /* Safari */
+  		transition-duration: 0.4s;
+		background-color: #D3D3D3;
+		border-radius: 12px;
+	}
+	#logout_button:hover
+	{
+		bacground-color: white;
+		border-radius: 2px;
+	}
+</style>
+{% endblock %}
+
+{% block heading %}
+<header align="center"><h1>Welcome to BookBee! {{ username }} </h1></header>
+{% endblock %}
+
+{% block body %}
+<img src="/static/books-lib.jpg" alt="book-lib">
+<div class = "form" id = "logout_form" align="right"> 
+	<form action="{{ url_for('logout') }}" method="POST">
+		<input type="hidden" name="username" value= "{{ username }}" />	
+		<button id="logout_button" class="btn btn-default">Logout</button>
+	</form>
+</div>
+
+<div class = "form">
+	<form action="{{ url_for('search_result') }}" method="POST" name="search_form" id="search_form"> 	
+		<h2>Search for your book here!</h2>
+		<p>
+		<p>
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<label for="isbn">ISBN: </label> 
+					<input type="text" name="isbn" placeholder=" ISBN" id="isbn"> 
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="book_name">Book Name: </label>
+					<input type="text" name="book_name" placeholder=" Name of book" id="book_name">
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="author">Author: </label>
+					<input type="text" name="author" placeholder=" Name of author" id="author">
+				</div>
+			</div>
+		<button class="btn btn-success btn-md">Search</button>	
+		</div>
+	</form>
+</div>
+{% endblock %}
